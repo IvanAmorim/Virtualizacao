@@ -1,1 +1,16 @@
 Configuração do switch 1
+
+#Show configuration 
+display current-configuration
+
+#reset switch
+reset saved-configuration
+
+#create vlan 2 
+vlan 2
+name SRV
+description Services
+quit
+interface vlan 2
+	ip address 10.102.2.1 24
+	
