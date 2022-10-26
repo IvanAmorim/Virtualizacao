@@ -14,3 +14,31 @@ quit
 interface vlan 2
 	ip address 10.102.2.1 24
 	
+
+
+IRF
+	irf member 1
+	save
+	irf priority 32
+	interface ten-gigabitethernet 1/1/2
+		shutdown
+	quit 
+	irf-port 1/2
+		port group interface ten-gigabitethernet 1/1/2
+	quit
+	interface ten-gigabitethernet 1/1/2
+		undo shutdown
+	quit 
+
+
+	irf-port-configuration active
+
+	interface bridge-aggregation 2
+		link-aggregation mode dynamic
+		mad enable
+ 	interface gigabitethernet 1/0/1
+		port link-aggregation group 2
+		quit
+	interface gigabitethernet 2/0/1
+		port link-aggregation group 2
+		quit

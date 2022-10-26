@@ -1,0 +1,15 @@
+
+
+
+
+
+interface bridge-aggregation 2
+	link-aggregation mode dynamic
+	quit
+interface gigabitethernet 1/0/1
+	port link-aggregation group 2
+	quit
+interface gigabitethernet 1/0/2
+	port link-aggregation group 2
+quit
+
