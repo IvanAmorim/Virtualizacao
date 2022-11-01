@@ -13,7 +13,41 @@ description Services
 quit
 interface vlan 2
 	ip address 10.102.2.1 24
-	
+
+#create vlan 3 
+vlan 3
+name MNGMT
+description Managment
+quit
+interface vlan 3
+	ip address 10.102.1.1 24
+
+#Set User / Password
+local-user admin
+	service-type telnet
+	authorization-attribute level 3
+	password simple admin
+quit
+
+#HTTP Access
+ip http enable 
+ip http port 80
+
+#Telnet Access
+telnet server enable
+user-interface vty 0 5
+authentication-mode password
+set authentication password simple admin
+user privilege level 3
+
+#Backup Configuration
+#backup para um servidor tftp
+backup startup-configuration to 10.102.2.5
+
+#Restore Configuration
+restore startup-configuration from 10.102.2.5 startup.cfg
+
+#######################################
 
 
 IRF
@@ -33,6 +67,11 @@ IRF
 
 	irf-port-configuration active
 
+####
+display IRF
+display IRF Topology
+###
+LACP
 	interface bridge-aggregation 2
 		link-aggregation mode dynamic
 		mad enable
@@ -42,3 +81,9 @@ IRF
 	interface gigabitethernet 2/0/1
 		port link-aggregation group 2
 		quit
+
+
+
+
+######
+Log in to a subordinate switch. irf switch-to member-id

@@ -1,7 +1,37 @@
 
 
+####
+Create Vlan 3
+vlan 3
+name MNGMT 
+description Managment
+quit
+
+interface vlan 3
+	ip address 10.102.1.3 24
+	quit
+
+#Set User / Password
+local-user admin
+	service-type telnet
+	authorization-attribute level 3
+	password simple admin
+quit
+
+#HTTP Access
+ip http enable 
+ip http port 80
+
+#Telnet Access
+telnet server enable
+user-interface vty 0 5
+authentication-mode password
+set authentication password simple admin
+user privilege level 3
 
 
+##################
+#intermediate device
 
 interface bridge-aggregation 2
 	link-aggregation mode dynamic
