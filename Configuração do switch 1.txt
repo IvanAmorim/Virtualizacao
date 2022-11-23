@@ -18,7 +18,7 @@ interface vlan 2
 vlan 3
 name MNGMT
 description Managment
-quit
+qui
 interface vlan 3
 	ip address 10.102.1.1 24
 
@@ -51,9 +51,14 @@ restore startup-configuration from 10.102.2.5 startup.cfg
 
 
 IRF
-	irf member 1
+irf member 1
 	save
+	reboot
+
+system-view
 	irf priority 32
+	
+##Conect IRF physical ports
 	interface ten-gigabitethernet 1/1/2
 		shutdown
 	quit 
@@ -71,15 +76,21 @@ IRF
 display IRF
 display IRF Topology
 ###
+
+
 LACP
 	interface bridge-aggregation 2
+		port link-type trunk
+ 		port trunk permit vlan all
 		link-aggregation mode dynamic
 		mad enable
  	interface gigabitethernet 1/0/1
 		port link-aggregation group 2
+		port trunk permit vlan 2 3
 		quit
 	interface gigabitethernet 2/0/1
 		port link-aggregation group 2
+		port trunk permit vlan 2 3
 		quit
 
 

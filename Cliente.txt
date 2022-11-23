@@ -33,13 +33,25 @@ user privilege level 3
 ##################
 #intermediate device
 
-interface bridge-aggregation 2
-	link-aggregation mode dynamic
-	quit
-interface gigabitethernet 1/0/1
-	port link-aggregation group 2
-	quit
-interface gigabitethernet 1/0/2
-	port link-aggregation group 2
-quit
+Vlan 2
+name "SRV"
+untagged 3-23
+tagged Trk1
+ip address 10.102.2.3 24
+exit
 
+
+vlan 3
+name "MNGMT"
+ip address 10.102.1.3 24
+tagged Trk1
+untagged 24
+exit
+
+trunk 1-2 Trk1 LACP
+vlan 2
+	tagged Trk1
+	exit
+vlan 3
+	tagged Trk1
+	exit

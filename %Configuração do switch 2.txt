@@ -1,4 +1,4 @@
-Configuração do switch 2
+itrConfiguração do switch 2
 
 #create vlan 2 
 vlan 2
